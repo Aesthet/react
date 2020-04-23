@@ -1,0 +1,26 @@
+version: 2
+jobs:
+  build:
+    working_directory: /app
+    docker:
+      - image: docker:git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --no-cache \
+              py-pip
+            pip install \
+              docker-compose \
+              awscli
+      - run:
+          name: Build application Docker image (dev)
+          command: |
+            docker build -t aesthet/react -f Dockerfile.dev .
+      - run:
+          name: Run tests
+          command: |
+            docker-compose -f docker-compose.yml up
+ 

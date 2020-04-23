@@ -1,0 +1,19 @@
+FROM node:alpine
+
+WORKDIR "/app"
+
+RUN ["apk", "add", "--update", "--no-cache", "git"]
+
+RUN ["npm", "install", "-g", "create-react-app"]
+
+RUN ["create-react-app", "frontend"]
+
+WORKDIR "/app/frontend"
+
+
+RUN ["npm", "install"]
+
+COPY . .
+
+CMD ["npm", "run", "start"]
+
