@@ -6,14 +6,10 @@ RUN ["apk", "add", "--update", "--no-cache", "git"]
 
 RUN ["npm", "install", "-g", "create-react-app"]
 
-RUN ["create-react-app", "frontend"]
+RUN ["create-react-app", "reactapp"]
 
-WORKDIR "/app/frontend"
-
+WORKDIR "/app/reactapp"
 
 RUN ["npm", "install"]
 
-COPY . .
-
 CMD ["npm", "run", "start"]
-
