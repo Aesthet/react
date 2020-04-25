@@ -1,0 +1,23 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t wadrt -f Dockerfile.dev .
+  - docker run -e CI=true wadrt test -- --coverage
+
+script:
+  - docker build -t wadrt .
+
+deploy:
+  provider: elasticbeanstalk
+  region: "eu-central-1"
+  app: "dockerweb"
+  env: "Dockerweb-env-1"
+  bucket: "elasticbeanstalk-eu-central-1-418451374107"
+  bucket_path: "dockerweb"
+  edge: true
+  on:
+    branch: master
+  access_key_id: $KEY
+  secret_access_key: "$SECRET"

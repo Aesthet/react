@@ -1,15 +1,13 @@
 FROM node:alpine
 
-WORKDIR "/app"
+WORKDIR /app
 
-RUN ["apk", "add", "--update", "--no-cache", "git"]
-
-RUN ["npm", "install", "-g", "create-react-app"]
-
-RUN ["create-react-app", "reactapp"]
-
-WORKDIR "/app/reactapp"
+COPY package.json .
 
 RUN ["npm", "install"]
 
-CMD ["npm", "run", "start"]
+COPY . .
+
+ENTRYPOINT ["npm", "run"]
+
+CMD ["start"]
